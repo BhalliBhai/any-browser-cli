@@ -32,9 +32,9 @@ npm install
 To test your site in different browsers, use the following commands:
 
 ```sh
+npm run test:safari  # Runs tests in Safari (WebKit)
 npm run test:chrome  # Runs tests in Chrome
 npm run test:firefox # Runs tests in Firefox
-npm run test:safari  # Runs tests in Safari (WebKit)
 ```
 
 ### 4. 🎇Browser Window is In front of you...🎇
