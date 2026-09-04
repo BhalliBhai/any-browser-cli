@@ -1,137 +1,107 @@
-# any-browser-cli
+# any-browser
 
-# Test Your Website on Different Browsers
+Test your website on Chrome, Firefox, and Safari — from any OS — with one command.
 
-Published January 28, 2025
+```
+any-browser test safari
+any-browser test chrome firefox
+any-browser test all
+```
 
 ## Table of Contents
 
 - [Getting Started](#getting-started)
+- [Usage](#usage)
 - [What Are The Major Browsers?](#what-are-the-major-browsers)
-- [Method That Works for Linux, macOS, Windows](#method-that-works-for-linux-macos-windows)
+- [Running From Source Instead](#running-from-source-instead)
 - [Troubleshooting](#troubleshooting)
-
----
+- [Publishing / Releasing](#publishing--releasing) (maintainers)
 
 ## Getting Started
 
-To set up and run the project, follow these steps:
+Install it globally from npm:
 
-### 1. Clone the Repository
-```sh
-git clone https://github.com/BhalliBhai/any-browser-cli.git
-cd any-browser-cli
+```
+npm install -g any-browser
 ```
 
-### 2. Install Dependencies
-```sh
-npm install
+The first install downloads the Chrome, Firefox, and Safari (WebKit) engines
+via Playwright — that's a one-time ~300MB download, and you'll see exactly
+what's happening and why in your terminal. After that, every run is instant.
+
+## Usage
+
+```
+any-browser test <browser...> [options]
 ```
 
-### 3. Run Tests
-To test your site in different browsers, use the following commands:
+| Browser argument | Engine used |
+|---|---|
+| `chrome` | Chromium |
+| `firefox` | Firefox |
+| `safari` | WebKit |
+| `all` | all three |
 
-```sh
-npm run test:safari  # Runs tests in Safari (WebKit)
-npm run test:chrome  # Runs tests in Chrome
-npm run test:firefox # Runs tests in Firefox
+Options:
+
+- `-u, --url <url>` — URL to test (default: `http://localhost:3000`)
+- `--headless` — run without opening a visible window
+
+Examples:
+
+```
+any-browser test safari
+any-browser test chrome firefox
+any-browser test all --url https://example.com
 ```
 
-### 4. 🎇Browser Window is In front of you...🎇
-
----
+🎇 Each browser opens in front of you, paused, so you can click around and
+inspect the page exactly like a real visitor would.
 
 ## What Are The Major Browsers?
 
-Ensuring your website looks great across all major browsers is crucial for a consistent user experience. This guide will help you test your site on **Chrome, Firefox, and Safari** regardless of your operating system—Linux, macOS, or Windows.
+Ensuring your website looks great across all major browsers is crucial for a
+consistent user experience. `any-browser` covers Chrome, Firefox, and Safari
+regardless of your operating system — Linux, macOS, or Windows.
 
-### Why These Browsers?
-
-If we look at browser market share worldwide, Chrome dominates at around 64%, Safari follows with about 20%, and Firefox holds roughly 4%. While there are many other browsers, these three are critical because they use distinct **browser engines**, which render web pages differently:
+If we look at browser market share worldwide, Chrome dominates at around 64%,
+Safari follows with about 20%, and Firefox holds roughly 4%. While there are
+many other browsers, these three are critical because they use distinct
+rendering engines:
 
 - **Chrome** (and Chromium-based browsers like Edge and Brave) use **Blink**.
 - **Firefox** uses **Gecko**, developed by Mozilla.
 - **Safari** uses **WebKit**, developed by Apple.
 
-Since **Safari is exclusive to macOS**, testing on it from Linux or Windows requires workarounds. Let's explore a solution.
+Since Safari is exclusive to macOS, testing it from Linux or Windows normally
+requires workarounds. `any-browser` sidesteps that entirely by using
+Playwright's open-source WebKit build, so `any-browser test safari` works
+identically on any OS.
 
----
+## Running From Source Instead
 
-## Method That Works for Linux, macOS, Windows
+Prefer to clone and run it locally rather than install globally? That still
+works exactly like before:
 
-### Linux Users:
-If you’re on Linux, you can use a **WebKit-based browser** like **Epiphany**. It may not be a perfect Safari replica, but it uses the same rendering engine.
-
-### Windows Users:
-Windows lacks a WebKit-based browser, so the best approach is using **a virtual machine** or the latest **Windows Subsystem for Linux (WSL)** with a GUI.
-
-### Cross-Platform Solution:
-To ensure a clean and automated testing environment, we use **Playwright**, which supports testing across **Chromium (Chrome), Firefox, and WebKit (Safari)** with open-source builds.
-
-⚠️ **Linux Users:** Playwright officially supports Ubuntu LTS versions. For unsupported distros, consider using a VM.
-
-### Setting Up Playwright
-
-#### 1. Initialize a new project:
-```sh
-npm init -y
 ```
-
-#### 2. Install Playwright:
-```sh
-npm i -D @playwright/test
+git clone https://github.com/BhalliBhai/any-browser-cli.git
+cd any-browser-cli
+npm install
+npm run test:safari   # or test:chrome / test:firefox
 ```
-
-#### 3. Install browsers:
-```sh
-npx playwright install
-```
-
-#### 4. Update `package.json`:
-```json
-{
-  "scripts": {
-    "test:chrome": "npx playwright test --headed --browser=chromium",
-    "test:firefox": "npx playwright test --headed --browser=firefox",
-    "test:safari": "npx playwright test --headed --browser=webkit"
-  },
-  "devDependencies": {
-    "@playwright/test": "^1.22.1"
-  }
-}
-```
-🐿️ The `npx` command lets you run Playwright without installing it globally.
-
-#### 5. Create a test file:
-Create a file `tests/browser.test.ts` with the following content:
-```ts
-import { test } from '@playwright/test';
-
-test('test browser', async ({ page }) => {
-  await page.goto('http://localhost:3000/'); // Change URL as needed
-  await page.pause(); // Keeps the browser open for inspection
-});
-```
-
-#### 6. Run the tests:
-```sh
-npm run test:safari
-```
-🎉 That’s it! You can now test your website in **Chrome, Firefox, and Safari** from any OS.
-
----
 
 ## Troubleshooting
 
-If you encounter missing dependencies on Linux when running WebKit tests, install them using:
-```sh
+If you hit missing dependencies on Linux when running WebKit tests:
+
+```
 npx playwright install-deps webkit
 ```
 
 If you see an error about missing libraries such as:
-```sh
-browserType.launch:
 
+```
+browserType.launch:
 Host system is missing dependencies to run browsers.
 Missing libraries:
   libpcre.so.3
@@ -141,14 +111,21 @@ Missing libraries:
   libenchant.so.1
   libffi.so.
 ```
-You need to install the necessary system dependencies. For Ubuntu, you can run:
-```sh
+
+Install the necessary system packages. On Ubuntu/Debian:
+
+```
 sudo apt-get install -y libpcre3 libicu66 libwebp6 libenchant1c2a libffi7
 ```
-For other distributions, refer to your package manager’s documentation.
 
-Now your site can be tested on every major browser regardless of your OS. 🚀
+For other distributions, check your package manager's docs, or just run
+`npx playwright install-deps` and let Playwright figure it out.
 
-If this helped, consider **starring** ⭐ the repository to support the project! 😊
+## Publishing / Releasing
 
-...
+See [PUBLISHING.md](./PUBLISHING.md) for the one-time npm/GitHub setup and the
+release workflow.
+
+---
+
+If this helped, consider starring ⭐ the repository to support the project! 😊

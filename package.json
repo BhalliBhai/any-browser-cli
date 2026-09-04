@@ -1,17 +1,53 @@
 {
-  "name": "any-browser-cli",
+  "name": "any-browser",
   "version": "1.0.0",
-  "description": "Test your website in different browsers like:  Safari | Chrome | Firefox | Opera etc",
-  "main": "index.js",
-  "scripts": {
-    "test:chrome": "npx playwright test --headed --browser=chromium",
-    "test:firefox": "npx playwright test --headed --browser=firefox",
-    "test:safari": "npx playwright test --headed --browser=webkit"
+  "description": "Test your website across Chrome, Firefox, and Safari (WebKit) with one CLI command.",
+  "type": "module",
+  "bin": {
+    "any-browser": "./bin/cli.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "@playwright/test": "^1.50.0"
+  "main": "src/runner.js",
+  "files": [
+    "bin",
+    "src",
+    "playwright.config.js",
+    "tests",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "postinstall": "node src/postinstall.js",
+    "test:chrome": "playwright test --project=chromium --headed",
+    "test:firefox": "playwright test --project=firefox --headed",
+    "test:safari": "playwright test --project=webkit --headed"
+  },
+  "keywords": [
+    "cli",
+    "browser-testing",
+    "playwright",
+    "cross-browser",
+    "chrome",
+    "firefox",
+    "safari",
+    "webkit",
+    "qa"
+  ],
+  "author": "BhalliBhai (https://bhalli.dev)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BhalliBhai/any-browser-cli.git"
+  },
+  "homepage": "https://github.com/BhalliBhai/any-browser-cli#readme",
+  "bugs": {
+    "url": "https://github.com/BhalliBhai/any-browser-cli/issues"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@playwright/test": "^1.50.0",
+    "commander": "^12.1.0",
+    "picocolors": "^1.1.1"
   }
 }
