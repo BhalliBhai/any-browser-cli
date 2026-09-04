@@ -1,5 +1,5 @@
 {
-  "name": "browser-testing",
+  "name": "any-browser-cli",
   "version": "1.0.0",
   "description": "Test your website in different browsers like:  Safari | Chrome | Firefox | Opera etc",
   "main": "index.js",
