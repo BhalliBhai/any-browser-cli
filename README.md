@@ -1,4 +1,4 @@
-# Browser-Testing
+# any-browser-cli
 
 # Test Your Website on Different Browsers
 
@@ -19,8 +19,8 @@ To set up and run the project, follow these steps:
 
 ### 1. Clone the Repository
 ```sh
-git clone https://github.com/BhalliBhai/Browser-Testing.git
-cd Browser-Testing
+git clone https://github.com/BhalliBhai/any-browser-cli.git
+cd any-browser-cli
 ```
 
 ### 2. Install Dependencies
