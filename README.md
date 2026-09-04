@@ -1,6 +1,6 @@
 # any-browser
 
-Test your website on Chrome, Firefox, and Safari — from any OS — with one command.
+Test your website on Safari, Firefox, and Chrome — from any OS — with one command.
 
 ```
 any-browser test safari
