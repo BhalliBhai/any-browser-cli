@@ -121,11 +121,6 @@ sudo apt-get install -y libpcre3 libicu66 libwebp6 libenchant1c2a libffi7
 For other distributions, check your package manager's docs, or just run
 `npx playwright install-deps` and let Playwright figure it out.
 
-## Publishing / Releasing
-
-See [PUBLISHING.md](./PUBLISHING.md) for the one-time npm/GitHub setup and the
-release workflow.
-
 ---
 
 If this helped, consider starring ⭐ the repository to support the project! 😊
