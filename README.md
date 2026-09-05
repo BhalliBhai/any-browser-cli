@@ -129,3 +129,7 @@ release workflow.
 ---
 
 If this helped, consider starring ⭐ the repository to support the project! 😊
+
+---
+
+Built by [Bhalli B.](https://bhalli.dev) — Full-Stack Developer & SaaS MVP Architect.
