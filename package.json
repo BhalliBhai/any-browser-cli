@@ -1,6 +1,6 @@
 {
   "name": "any-browser",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Test your website across Safari (WebKit), Firefox, and Chrome with one CLI command.",
   "type": "module",
   "bin": {
