@@ -15,7 +15,6 @@ any-browser test all
 - [What Are The Major Browsers?](#what-are-the-major-browsers)
 - [Running From Source Instead](#running-from-source-instead)
 - [Troubleshooting](#troubleshooting)
-- [Publishing / Releasing](#publishing--releasing) (maintainers)
 
 ## Getting Started
 
