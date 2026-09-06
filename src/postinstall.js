@@ -7,9 +7,11 @@ const isCI = !!process.env.CI;
 console.log('');
 console.log(pc.cyan('any-browser needs real browser engines (Chromium, Firefox, WebKit) to run tests.'));
 console.log(
-  pc.dim('This is a one-time download (~300MB total, handled by Playwright) so every')
+  pc.dim("Getting a head start on that now (~300MB total, handled by Playwright)")
 );
-console.log(pc.dim('"any-browser test <browser>" run afterwards is instant — no setup needed.'));
+console.log(pc.dim("so your first \"any-browser test\" run is fast. If this step gets"));
+console.log(pc.dim('skipped by your npm/security settings, no problem — any-browser'));
+console.log(pc.dim('double-checks and installs whatever it needs the first time you run it.'));
 
 if (isCI) {
   console.log(pc.yellow('\nCI environment detected — skipping the automatic download.'));

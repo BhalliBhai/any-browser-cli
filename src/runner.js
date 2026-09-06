@@ -43,14 +43,31 @@ export async function runTests(browserArgs, options) {
   }
 }
 
-function runOne(engine, options) {
+function ensureBrowserInstalled(engine) {
   return new Promise((resolve) => {
-    console.log(pc.bold(`\n▶ ${ENGINE_LABELS[engine]} (${engine})`));
-
     const cliPath = resolvePlaywrightCli();
-    const args = ['test', `--project=${engine}`, `--config=${CONFIG_PATH}`];
-    if (!options.headless) args.push('--headed');
+    // `playwright install <engine>` is cheap and near-instant if the browser
+    // is already present — it only actually downloads when something's
+    // missing. Running it here means we never depend solely on postinstall
+    // having been allowed to run.
+    const child = spawn(process.execPath, [cliPath, 'install', engine], {
+      stdio: 'inherit',
+    });
+    child.on('close', () => resolve());
+    child.on('error', () => resolve());
+  });
+}
 
+async function runOne(engine, options) {
+  console.log(pc.bold(`\n▶ ${ENGINE_LABELS[engine]} (${engine})`));
+
+  await ensureBrowserInstalled(engine);
+
+  const cliPath = resolvePlaywrightCli();
+  const args = ['test', `--project=${engine}`, `--config=${CONFIG_PATH}`];
+  if (!options.headless) args.push('--headed');
+
+  await new Promise((resolve) => {
     const child = spawn(process.execPath, [cliPath, ...args], {
       stdio: 'inherit',
       env: {
